@@ -4,12 +4,21 @@
 <meta charset="UTF-8">
 <title>Login to BullHorn</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script>
+	function verifyPassword() {
+		var password = $('#password').val();
+		if (password.length > 15) {
+			alert('That password is too long.');
+		}
+	}
+</script>
 </head>
 <body>
+	<h1>Welcome to Bullhorn</h1>
 	<form action="LoginServlet" method="post">
-		User Name: <input type="text" name="username"> <br/>
-		Password: <input type="password" name="password"> <br/>
-		<input type="submit" value="submit" id="submit">
+		User Name: <input type="text" name="username"> <br />
+		Password: <input type="password" name="password" id="password">
+		<br /> <input type="submit" value="submit" id="submit">
 	</form>
 </body>
 </html>

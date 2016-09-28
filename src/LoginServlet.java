@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import UserData.User;
+import Model.Bhpost;
+import Model.Bhuser;
+import customTools.DBBullHorn;
+//import UserData.User;
+import customTools.DBUser;
 
 /**
  * Servlet implementation class Process
@@ -31,27 +36,34 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Login Succesful");
-		doPost(request,response);
+		//doPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = new User();
+//		User user = new User();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		user.setPassword(password);
-		user.setUsername(username);
-		//PrintWriter out = response.getWriter();
+//		user.setPassword(password);
+//		user.setUsername(username);
+//		//PrintWriter out = response.getWriter();
 		String nextUrl;
-				
-		if(user.isValidUser()){
+		Bhuser user = null;
+		List<Bhpost> posts = null;
+		
+		
+		if(DBUser.isValidUser(username, password)){
+			user = DBUser.getUserByEmail(username);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-			nextUrl = "/Output.jsp";	
+			posts = DBBullHorn.bhPost();
+			session.setAttribute("posts", posts);
+			nextUrl = "/Home.jsp";	
 		}
 		else{
+			response.getWriter().append("Invalid username/password");
 			nextUrl = "/Login.html";
 		}
 		response.sendRedirect(request.getContextPath()+nextUrl);
