@@ -10,8 +10,44 @@
 <title>Support</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 <jsp:include page="bootstrap.jsp"></jsp:include>
+<script>
+	function validate(form) {
+		valid = true;
+		if ($('#email').val().length == 0) {
+			alert("Please input your email address.");
+			valid = false;
+		}
+		if ($('#comments').val().length == 0) {
+			alert("Please input your comments. This will help us serve you better. Thank you.");
+			valid = false;
+		}
+		return valid;
+	}
+	function submitComment() {
+		valid = true;
+		if ($('#email').val().length == 0) {
+			alert("Please input your email address.");
+			valid = false;
+		}
+		if ($('#comments').val().length == 0) {
+			alert("Please input your comments. This will help us serve you better. Thank you.");
+			valid = false;
+		}
+		return valid;
+	}
+</script>
 </head>
 <body>
 	<h1>Support</h1>
+	<form role="form" action="SupportServlet" method="post"
+		onsubmit="return validate(this);">
+		<div class="form-group">
+			<p>Enter your email address:</p>
+			<input type="text" id="email"></input>
+			<p>Comments:</p>
+			<textarea id="comments"></textarea>
+			<input type="submit" value="Submit" id="submit" onclick="submitComment()" />
+		</div>
+	</form>
 </body>
 </html>

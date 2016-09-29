@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -14,12 +15,12 @@ import java.util.Date;
 public class Bhpost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long postid;
-
 	@Temporal(TemporalType.DATE)
 	private Date postdate;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long postid;
 
 	private String posttext;
 
@@ -31,20 +32,20 @@ public class Bhpost implements Serializable {
 	public Bhpost() {
 	}
 
-	public long getPostid() {
-		return this.postid;
-	}
-
-	public void setPostid(long postid) {
-		this.postid = postid;
-	}
-
 	public Date getPostdate() {
 		return this.postdate;
 	}
 
 	public void setPostdate(Date postdate) {
 		this.postdate = postdate;
+	}
+
+	public long getPostid() {
+		return this.postid;
+	}
+
+	public void setPostid(long postid) {
+		this.postid = postid;
 	}
 
 	public String getPosttext() {
